@@ -7,6 +7,7 @@ class Test extends Component {
     this.state = {
       delay: 300,
       result: 'No result',
+      legacyMode: true,
     }
     this.handleScan = this.handleScan.bind(this)
     this.handleImgSubmit = this.handleImgSubmit.bind(this)
@@ -34,6 +35,7 @@ class Test extends Component {
           delay={this.state.delay}
           onError={this.handleError}
           onScan={this.handleScan}
+          legacyMode={this.state.legacyMode}
           style={{ width: '100%' }}
           ref="reader"
           />
