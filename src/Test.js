@@ -17,17 +17,24 @@ class Test extends Component {
       })
     }
   }
+  handleImgSubmit(){
+    this.refs.reader.openImageDialog()
+  }
   handleError(err){
     console.error(err)
   }
   render(){
     return(
       <div>
+        <div>
+          <button onClick={this.handleImgSubmit}>Submit an Image</button>
+        </div>
         <QrReader
           delay={this.state.delay}
           onError={this.handleError}
           onScan={this.handleScan}
           style={{ width: '100%' }}
+          ref="reader"
           />
         <p>{this.state.result}</p>
       </div>
