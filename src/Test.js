@@ -28,15 +28,26 @@ class Test extends Component {
   render(){
     return(
       <div>
-        <div>
-          <button onClick={this.handleImgSubmit}>Submit an Image</button>
+        <div style={{display: 'flex', height: 50, margin: 15, }}>
+          <button
+            onClick={this.handleImgSubmit}
+            style={{
+              flex: 1,
+              backgroundColor: '#f44336',
+              color: 'white',
+              fontSize: '1em',
+              border: 'none',
+              borderRadius: 4,
+            }}>Submit</button>
         </div>
         <QrReader
           delay={this.state.delay}
           onError={this.handleError}
           onScan={this.handleScan}
           legacyMode={this.state.legacyMode}
-          style={{ width: '100%' }}
+          style={{
+            width: '100%',
+          }}
           ref="reader"
           />
         <p>{this.state.result}</p>
