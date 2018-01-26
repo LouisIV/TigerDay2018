@@ -9,6 +9,7 @@ class Test extends Component {
       result: 'No result',
     }
     this.handleScan = this.handleScan.bind(this)
+    this.handleImgSubmit = this.handleImgSubmit.bind(this)
   }
   handleScan(data){
     if(data){
