@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+var request = require('request');
 import crypto from 'crypto';
 
 // var name = 'braitsch';
@@ -119,7 +120,21 @@ class DriveButton extends Component {
   }*/
 
   handleSubmission(){
-
+    var options = {
+      url: 'https://sign-in-event-store.herokuapp.com/',
+      port: 5000,
+      method: 'POST',
+      json: {"email":this.state.email,"qr":123456789}
+    }
+    request(options, function(error, response, body){
+      if(error) console.log(error);
+        else console.log(body);
+    });
+    // request({'https://sign-in-event-store.herokuapp.com/', formData: }, (err, res, body) => {
+    //   if (err) { return console.log(err); }
+    //   console.log(body.url);
+    //   console.log(body.explanation);
+    // });
   }
 
   // grabTable(schema)
