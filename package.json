@@ -5,10 +5,7 @@
   "dependencies": {
     "dns": "^0.2.2",
     "google-drive": "0.0.8",
-    "libpq": "^1.8.7",
     "npm": "^5.6.0",
-    "pg": "^7.4.1",
-    "pg-native": "2.2.0",
     "react": "^16.2.0",
     "react-cookie": "^2.1.2",
     "react-dom": "^16.2.0",

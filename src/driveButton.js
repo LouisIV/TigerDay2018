@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 var request = require('request');
-import crypto from 'crypto';
+// import crypto from 'crypto';
 
 // var name = 'braitsch';
 // var hash = crypto.createHash('md5').update(name).digest('hex');
@@ -122,7 +122,6 @@ class DriveButton extends Component {
   handleSubmission(){
     var options = {
       url: 'https://sign-in-event-store.herokuapp.com/',
-      port: 5000,
       method: 'POST',
       json: {"email":this.state.email,"qr":123456789}
     }
