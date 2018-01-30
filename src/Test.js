@@ -32,13 +32,8 @@ class Test extends Component {
           <button
             onClick={this.handleImgSubmit}
             style={{
-              flex: 1,
-              backgroundColor: '#f44336',
-              color: 'white',
-              fontSize: '1em',
-              border: 'none',
-              borderRadius: 4,
-            }}>Submit</button>
+              backgroundColor: 'green',
+            }}>Take Photo</button>
         </div>
         <QrReader
           delay={this.state.delay}
@@ -46,7 +41,7 @@ class Test extends Component {
           onScan={this.handleScan}
           legacyMode={this.state.legacyMode}
           style={{
-            width: '100%',
+            height: 200,
           }}
           ref="reader"
           />
