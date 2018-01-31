@@ -121,9 +121,10 @@ class DriveButton extends Component {
 
   handleSubmission(){
     var options = {
-      url: 'https://sign-in-event-store.herokuapp.com/',
       method: 'POST',
-      json: {"email":this.state.email,"qr":123456789}
+      url: 'https://sign-in-event-store.herokuapp.com/',
+      port: 5000,
+      json: {"email":this.state.email,"qr":"123456789"}
     }
     request(options, function(error, response, body){
       if(error) console.log(error);
