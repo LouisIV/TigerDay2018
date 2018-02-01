@@ -45,3 +45,11 @@ input {
   border: solid #f44336 .5px;
   font-size: 1em;
 }
+
+.Input-not-set {
+  color: grey;
+}
+
+.Input-set {
+  color: black;
+}
