@@ -37,6 +37,11 @@ class Test extends Component {
       this.setState({
         result: data,
       })
+      let message = "QR code scanned! Press Submit";
+      this.setState({ message });
+    } else {
+      let message = "That didn't work. Try scanning the code again";
+      this.setState({ message });
     }
   }
 
@@ -67,6 +72,8 @@ class Test extends Component {
           if(error) console.log(error);
             else console.log(body);
         });
+        let message = "Code Submitted!";
+        this.setState({ message });
       } else {
         console.log("Tried to submit invalid code.");
         let message = "You need to scan a QR code first";
