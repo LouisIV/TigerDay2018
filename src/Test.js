@@ -50,7 +50,7 @@ class Test extends Component {
   }
 
   handleEmailChange(event) {
-    let email = event.target.value;
+    let email = event.target.value.toLowerCase();
     const { cookies } = this.props;
     cookies.set('email', email);
     console.log(String(email))
