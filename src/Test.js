@@ -58,8 +58,8 @@ class Test extends Component {
   }
 
   handleSubmission(){
-    if (this.state.email != "NOT SET") {
-      if (this.state.result != 'No result'){
+    if (this.state.email !== "NOT SET") {
+      if (this.state.result !== 'No result'){
         var options = {
           method: 'POST',
           url: 'https://sign-in-event-store.herokuapp.com/',
@@ -93,30 +93,32 @@ class Test extends Component {
   render(){
     const { email } = this.state;
     var placeholder = "Please enter your email";
-    var inputClass = "Input-not-set";
-    if (email != "NOT SET") {
+    var buttonClass = "Submit-disabled";
+    if (email !== "NOT SET") {
       placeholder = email;
       console.log("Email: " + email);
 
       // Change style to show email has been set
-      inputClass = "Input-set";
+      if (this.state.result !== "No result"){
+        buttonClass = "Submit-ready";
+      }
+    } else {
+        let message = "Enter you email to get started";
+        this.setState({ message });
     }
     const { message } = this.state;
     return(
       <div>
       <p style={{fontSize: '1em', color: 'grey', marginTop: 20}}>{message}</p>  
-      <div style={{display: 'flex'}}>
+      <div style={{display: 'flex',}}>
         <input
           type="text"
-          className={ inputClass }
           placeholder={placeholder}
           onChange={this.handleEmailChange}/>
         <div style={{display: 'flex', height: 50, margin: 15, }}>
             <button
               onClick={this.handleSubmission}
-              style={{
-                backgroundColor: '#f44336',
-              }}
+              className={buttonClass}
               >Submit
             </button>
         </div>
