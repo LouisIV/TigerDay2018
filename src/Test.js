@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import QrReader from 'react-qr-reader'
 import { instanceOf } from 'prop-types';
+import QrReader from 'react-qr-reader'
 import { withCookies, Cookies } from 'react-cookie';
+import HelpMessage from './HelpMessage';
 var request = require('request');
 
 class Test extends Component {
@@ -16,12 +17,16 @@ class Test extends Component {
       legacyMode: true,
       email: "NOT SET",
       message: "Please ensure this is your correct email",
+      hadError: false,
+      hadSucess: false,
     }
     this.handleScan = this.handleScan.bind(this)
     this.handleImgSubmit = this.handleImgSubmit.bind(this)
 
     this.handleSubmission = this.handleSubmission.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
+
+    this.handleServerResponse = this.handleServerResponse.bind(this)
   }
 
   componentWillMount() {
@@ -42,6 +47,9 @@ class Test extends Component {
     } else {
       let message = "That didn't work. Try scanning the code again";
       this.setState({ message });
+
+      let hadError = true;
+      this.setState({ hadError });
     }
   }
 
@@ -57,6 +65,22 @@ class Test extends Component {
     this.setState({ email });
   }
 
+  handleServerResponse(error, response, body){
+    if(error) console.log(error);
+      else console.log(body);
+    try {
+      console.log('Drive Status: ', body.drive_status);
+
+      let message = "Successful";
+      this.setState({ message });
+    }
+    catch(e) {
+      console.log(e.message); // "missing ; before statement"
+      let message = "Something went wrong";
+      this.setState({ message });
+    }
+  }
+
   handleSubmission(){
     if (this.state.email !== "NOT SET") {
       if (this.state.result !== 'No result'){
@@ -68,21 +92,26 @@ class Test extends Component {
         }
         console.log(this.state.email);
         console.log(this.state.result);
-        request(options, function(error, response, body){
-          if(error) console.log(error);
-            else console.log(body);
-        });
-        let message = "Code Submitted!";
+
+        let message = "Submitting Code ...";
         this.setState({ message });
+        request(options, this.handleServerResponse);
+
       } else {
         console.log("Tried to submit invalid code.");
         let message = "You need to scan a QR code first";
         this.setState({ message });
+
+        let hadError = true;
+        this.setState({ hadError });
       }
     } else {
         console.log("Tried to submit without email.");
         let message = "You need to enter your email first";
         this.setState({ message });
+
+        let hadError = true;
+        this.setState({ hadError });
     }
   }
 
@@ -103,13 +132,13 @@ class Test extends Component {
         buttonClass = "Submit-ready";
       }
     } else {
-        let message = "Enter you email to get started";
-        this.setState({ message });
+      let message = "Enter you email to get started";
+      this.setState({ message });
     }
     const { message } = this.state;
     return(
       <div>
-      <p style={{fontSize: '1em', color: 'grey', marginTop: 20}}>{message}</p>  
+      <HelpMessage message={message} hadError={this.state.hadError}/>
       <div style={{display: 'flex',}}>
         <input
           type="text"
@@ -129,7 +158,7 @@ class Test extends Component {
             onClick={this.handleImgSubmit}
             style={{
               backgroundColor: 'green',
-            }}>Take Photo</button>
+            }}><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
         </div>
         <QrReader
           delay={this.state.delay}
@@ -138,6 +167,7 @@ class Test extends Component {
           legacyMode={this.state.legacyMode}
           style={{
             height: 200,
+            border: 'none',
           }}
           ref="reader"
           />
