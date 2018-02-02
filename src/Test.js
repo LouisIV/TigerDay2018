@@ -138,41 +138,41 @@ class Test extends Component {
     const { message } = this.state;
     return(
       <div>
-      <HelpMessage message={message} hadError={this.state.hadError}/>
-      <div style={{display: 'flex',}}>
-        <input
-          type="text"
-          placeholder={placeholder}
-          onChange={this.handleEmailChange}/>
-        <div style={{display: 'flex', height: 50, margin: 15, }}>
+        <HelpMessage message={message} hadError={this.state.hadError}/>
+        <div style={{display: 'flex',}}>
+          <input
+            type="text"
+            placeholder={placeholder}
+            onChange={this.handleEmailChange}/>
+          <div style={{display: 'flex', height: 50, margin: 15, }}>
+              <button
+                onClick={this.handleSubmission}
+                className={buttonClass}
+                >Submit
+              </button>
+          </div>
+        </div>
+        <div>
+          <div style={{display: 'flex', height: 50, margin: 15, }}>
             <button
-              onClick={this.handleSubmission}
-              className={buttonClass}
-              >Submit
-            </button>
-        </div>
-      </div>
-      <div>
-        <div style={{display: 'flex', height: 50, margin: 15, }}>
-          <button
-            onClick={this.handleImgSubmit}
+              onClick={this.handleImgSubmit}
+              style={{
+                backgroundColor: 'green',
+              }}><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
+          </div>
+          <QrReader
+            delay={this.state.delay}
+            onError={this.handleError}
+            onScan={this.handleScan}
+            legacyMode={this.state.legacyMode}
             style={{
-              backgroundColor: 'green',
-            }}><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
+              height: 200,
+              border: 'none',
+            }}
+            ref="reader"
+            />
+          <p>{this.state.result}</p>
         </div>
-        <QrReader
-          delay={this.state.delay}
-          onError={this.handleError}
-          onScan={this.handleScan}
-          legacyMode={this.state.legacyMode}
-          style={{
-            height: 200,
-            border: 'none',
-          }}
-          ref="reader"
-          />
-        <p>{this.state.result}</p>
-      </div>
       </div>
     )
   }

@@ -80,6 +80,10 @@ p {
   color: black;
 }
 
+.norm {
+  color: grey;
+}
+
 .error {
   color: red;
 }

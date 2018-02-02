@@ -10,16 +10,19 @@ class HelpMessage extends Component {
 	}
 
 	render() {
+		let className = "norm";
 		let icons = null;
 		if (this.props.hadSucess) {
 			icons = <i className="fa fa-check fa-lg success"></i>;
+			className = "success";
 		}
 		if (this.props.hadError){
 			icons = <i className="fa fa-times fa-lg error"></i>;
+			className = "error";
 		}
 
 		return (
-			<p style={{fontSize: '1em', color: 'grey', marginTop: 20}}>{icons} {this.props.message}</p>
+			<p className={className} style={{fontSize: '1em', marginTop: 20}}>{icons} {this.props.message}</p>
 		)
 	}
 }
