@@ -3,6 +3,7 @@ import { instanceOf } from 'prop-types';
 import QrReader from 'react-qr-reader'
 import { withCookies, Cookies } from 'react-cookie';
 import HelpMessage from './HelpMessage';
+import DataForm from './DataForm';
 var request = require('request');
 
 class Test extends Component {
@@ -17,8 +18,10 @@ class Test extends Component {
       legacyMode: true,
       email: "NOT SET",
       message: "Please ensure this is your correct email",
-      hadError: false,
-      hadSucess: false,
+      status: "warn",
+      notesText: "",
+      priority: 2,
+      resetDelay: 2000,
     }
     this.handleScan = this.handleScan.bind(this)
     this.handleImgSubmit = this.handleImgSubmit.bind(this)
@@ -27,6 +30,9 @@ class Test extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this)
 
     this.handleServerResponse = this.handleServerResponse.bind(this)
+    this.updateNotesForm = this.updateNotesForm.bind(this)
+    this.updatePriority = this.updatePriority.bind(this)
+    
   }
 
   componentWillMount() {
@@ -43,13 +49,16 @@ class Test extends Component {
         result: data,
       })
       let message = "QR code scanned! Press Submit";
-      this.setState({ message });
+
+      let status = ""
+      this.setState({ status })
+      this.setState({ message })
     } else {
       let message = "That didn't work. Try scanning the code again";
       this.setState({ message });
 
-      let hadError = true;
-      this.setState({ hadError });
+      let status = "error";
+      this.setState({ status });
     }
   }
 
@@ -73,6 +82,21 @@ class Test extends Component {
 
       let message = "Successful";
       this.setState({ message });
+
+      let status = "success";
+      this.setState({ status });
+      this.setState({result: "No result"});
+
+      /*
+      setTimeout(function() {
+        let message = "Try scanning another QR code!";
+        let status = "";
+        this.setState({
+          message: message,
+          status: status,
+        });
+      }.bind(this), this.state.resetDelay);
+      */
     }
     catch(e) {
       console.log(e.message); // "missing ; before statement"
@@ -88,13 +112,23 @@ class Test extends Component {
           method: 'POST',
           url: 'https://sign-in-event-store.herokuapp.com/',
           port: 5000,
-          json: {"email":this.state.email,"qr":this.state.result}
+          json: {
+            "email":this.state.email,
+            "qr":this.state.result,
+            "notes":this.state.notesText,
+            "priority":this.state.priority
+          }
         }
         console.log(this.state.email);
         console.log(this.state.result);
+        console.log(this.state.notesText);
+        console.log(this.state.priority);
 
         let message = "Submitting Code ...";
         this.setState({ message });
+
+        let status = "loading";
+        this.setState({ status });
         request(options, this.handleServerResponse);
 
       } else {
@@ -102,16 +136,16 @@ class Test extends Component {
         let message = "You need to scan a QR code first";
         this.setState({ message });
 
-        let hadError = true;
-        this.setState({ hadError });
+        let status = "error";
+        this.setState({ status });
       }
     } else {
         console.log("Tried to submit without email.");
         let message = "You need to enter your email first";
         this.setState({ message });
 
-        let hadError = true;
-        this.setState({ hadError });
+        let status = "error";
+        this.setState({ status });
     }
   }
 
@@ -119,13 +153,21 @@ class Test extends Component {
     console.error(err)
   }
 
+  updateNotesForm(notesText){
+    this.setState({ notesText });
+  }
+
+  updatePriority(priority){
+    this.setState({ priority });
+  }
+
+
   render(){
     const { email } = this.state;
     var placeholder = "Please enter your email";
     var buttonClass = "Submit-disabled";
     if (email !== "NOT SET") {
       placeholder = email;
-      console.log("Email: " + email);
 
       // Change style to show email has been set
       if (this.state.result !== "No result"){
@@ -134,31 +176,26 @@ class Test extends Component {
     } else {
       let message = "Enter you email to get started";
       this.setState({ message });
+      let status = "";
+      this.setState({status});
     }
     const { message } = this.state;
+    
     return(
       <div>
-        <HelpMessage message={message} hadError={this.state.hadError}/>
-        <div style={{display: 'flex',}}>
+        <HelpMessage message={message} status={this.state.status}/>
+        <div className="User-input-box">
           <input
             type="text"
             placeholder={placeholder}
-            onChange={this.handleEmailChange}/>
-          <div style={{display: 'flex', height: 50, margin: 15, }}>
-              <button
-                onClick={this.handleSubmission}
-                className={buttonClass}
-                >Submit
-              </button>
-          </div>
+            onChange={this.handleEmailChange}
+            style={{margin: 0}}/>
         </div>
         <div>
-          <div style={{display: 'flex', height: 50, margin: 15, }}>
+          <div className="User-input-box">
             <button
               onClick={this.handleImgSubmit}
-              style={{
-                backgroundColor: 'green',
-              }}><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
+              className="qr-button"><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
           </div>
           <QrReader
             delay={this.state.delay}
@@ -168,10 +205,22 @@ class Test extends Component {
             style={{
               height: 200,
               border: 'none',
+              display: 'none',
             }}
+            className={'qr-code'}
             ref="reader"
             />
+        </div>
+        <div>
           <p>{this.state.result}</p>
+          <DataForm updateNotesForm={this.updateNotesForm} onPriorityChange={this.updatePriority}/>
+          <div className="User-input-box">
+            <button
+              onClick={this.handleSubmission}
+              className={buttonClass}
+              >Submit
+            </button>
+          </div>
         </div>
       </div>
     )

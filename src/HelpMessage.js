@@ -4,21 +4,27 @@ class HelpMessage extends Component {
 		super(props)
 		this.state = {
 			message: "Enter your email to get started",
-			hadError: false,
-			hadSucess: false,
 		}
 	}
 
 	render() {
 		let className = "norm";
 		let icons = null;
-		if (this.props.hadSucess) {
+		if (this.props.status === "success") {
 			icons = <i className="fa fa-check fa-lg success"></i>;
 			className = "success";
 		}
-		if (this.props.hadError){
+		else if (this.props.status === "error"){
 			icons = <i className="fa fa-times fa-lg error"></i>;
 			className = "error";
+		}
+		else if (this.props.status === "warn"){
+			icons = <i className="fa fa-exclamation"></i>;
+			className = "warn";
+		}
+		else if(this.props.status === "loading"){
+			icons = <i className="fa fa-spin fa-circle-o-notch"></i>;
+			className = "";
 		}
 
 		return (
