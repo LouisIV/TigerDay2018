@@ -119,10 +119,10 @@ class Test extends Component {
             "priority":this.state.priority
           }
         }
-        console.log(this.state.email);
-        console.log(this.state.result);
-        console.log(this.state.notesText);
-        console.log(this.state.priority);
+        console.log(("email: %s" % this.state.email));
+        console.log(("qr: %s" % this.state.result));
+        console.log(("notes: %s" % this.state.notesText));
+        console.log(("priority: %s" % this.state.priority));
 
         let message = "Submitting Code ...";
         this.setState({ message });
@@ -183,7 +183,7 @@ class Test extends Component {
     
     return(
       <div>
-        <HelpMessage message={message} status={this.state.status}/>
+        
         <div className="User-input-box">
           <input
             type="text"
@@ -218,8 +218,10 @@ class Test extends Component {
             <button
               onClick={this.handleSubmission}
               className={buttonClass}
-              >Submit
+              style={{order: 1, marginRight: 10, flex: 4, display: 'flex', justifyContent:'center', alignItems: 'center'}}
+              ><HelpMessage message={message} status={this.state.status}/>
             </button>
+            <button style={{order: 2, flex: 1}}><i className={"fa fa-repeat fa-lg"}></i></button>
           </div>
         </div>
       </div>

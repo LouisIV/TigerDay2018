@@ -24,11 +24,11 @@ class HelpMessage extends Component {
 		}
 		else if(this.props.status === "loading"){
 			icons = <i className="fa fa-spin fa-circle-o-notch"></i>;
-			className = "";
+			className = "norm";
 		}
 
 		return (
-			<p className={className} style={{fontSize: '1em', marginTop: 20}}>{icons} {this.props.message}</p>
+			<p className={className} style={{fontSize: '1em'}}>{icons} {this.props.message}</p>
 		)
 	}
 }
