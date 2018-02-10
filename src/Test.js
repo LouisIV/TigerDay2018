@@ -214,14 +214,25 @@ class Test extends Component {
         <div>
           <p>{this.state.result}</p>
           <DataForm updateNotesForm={this.updateNotesForm} onPriorityChange={this.updatePriority}/>
-          <div className="User-input-box">
-            <button
-              onClick={this.handleSubmission}
-              className={buttonClass}
-              style={{order: 1, marginRight: 10, flex: 4, display: 'flex', justifyContent:'center', alignItems: 'center'}}
-              ><HelpMessage message={message} status={this.state.status}/>
-            </button>
-            <button style={{order: 2, flex: 1}}><i className={"fa fa-repeat fa-lg"}></i></button>
+          <HelpMessage message={message} status={this.state.status}/>
+          <div style={{display: 'flex', flexWrap: 'wrap'}}>
+            <div className="User-input-box" style={{order:1, flexBasis: 400, flexGrow: 6, }}>
+              <button
+                onClick={this.handleSubmission}
+                className={buttonClass}
+                style={{
+                  order: 1,
+                  flex: 4,
+                  display: 'flex',
+                  justifyContent:'center',
+                  alignItems: 'center',
+                }}
+                >Submit
+              </button>
+            </div>
+            <div className="User-input-box" style={{order:2, flexBasis: 100, flexGrow: 1}}>
+              <button className={"high-p"}><i className={"fa fa-repeat fa-lg"}></i></button>
+            </div>
           </div>
         </div>
       </div>

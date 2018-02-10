@@ -52,6 +52,7 @@
   height: 50px;
   margin: 15px;
   flex-wrap: wrap;
+  flex-flow: row wrap;
 }
 
 button {
@@ -164,7 +165,7 @@ p {
 }
 
 .norm {
-  color: white;
+  color: var(--dark-grey);
 }
 
 .error {
