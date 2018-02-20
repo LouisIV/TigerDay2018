@@ -76,34 +76,13 @@ class Test extends Component {
 
   handleServerResponse(error, response, body){
 
-    if(error) console.log(error);
-      else console.log(body);
-    try {
-      console.log('Drive Status: ', body.drive_status);
+    // we just assume google accepted everything
+    let message = "Submitted to Google Drive";
+    this.setState({ message });
 
-      let message = "Successful";
-      this.setState({ message });
-
-      let status = "success";
-      this.setState({ status });
-      this.setState({result: "No result"});
-
-      /*
-      setTimeout(function() {
-        let message = "Try scanning another QR code!";
-        let status = "";
-        this.setState({
-          message: message,
-          status: status,
-        });
-      }.bind(this), this.state.resetDelay);
-      */
-    }
-    catch(e) {
-      console.log(e.message); // "missing ; before statement"
-      let message = "Something went wrong";
-      this.setState({ message });
-    }
+    let status = "success";
+    this.setState({ status });
+    this.setState({result: "No result"});
   }
 
   handleSubmission(){
@@ -117,54 +96,33 @@ class Test extends Component {
     console.log(("priority: " + q2Input));
     console.log(("notesText: " + q3Input));
 
-
     let q1ID = "entry.15912380";
     let q2ID = "entry.406020882";
     let q3ID = "entry.1689860009";
 
     let q1Encode = q1ID + "=" + q1Input + "&";
     let q2Encode = q2ID + "=" + q2Input + "&";
-    let q3Encode = q3ID = "=" + q3Input + "&";
-    var submitURL = "https://docs.google.com/forms/d/" + YOURFORMID + "/formResponse?" + q1Encode + q2Encode + q3Encode + "submit=Submit";
+    let q3Encode = q3ID + "=" + q3Input + "&";
+    var submitURL = "https://docs.google.com/forms/d/e/" + YOURFORMID + "/formResponse?" + q1Encode + q2Encode + q3Encode + "submit=Submit";
 
-    var options = {
-      method: 'POST',
-      url: submitURL,
-      port: 5000
-    }
-    console.log("SUBMIT");
-    console.log(("Submit URL: " + submitURL));
-    request(options, this.handleServerResponse);
-    /*
-    "https://docs.google.com/forms/d/e/1FAIpQLSf78G5wJiO_QJeXhy8DEIJ0IZAUcKRpCSooFP0ensZzLcO5ug/formResponse"
-    "https://docs.google.com/forms/d/%s/formResponse?entry.[YOURQUESTION1IDHERE]=[YOURQUESTION1ANSWERHERE]&entry.[YOURQUESTION2IDHERE]=[YOURQUESTION2ANSWERHERE]&submit=Submit" % [YOURFORMID]
-    // this.refs.myGForm.submit();
-    // $('#mG61Hd').submit();
-    // document.getElementById("mG61Hd").reset();
     if (this.state.email !== "NOT SET") {
       if (this.state.result !== 'No result'){
-        var options = {
-          method: 'POST',
-          url: 'https://sign-in-event-store.herokuapp.com/',
-          port: 5000,
-          json: {
-            "email":this.state.email,
-            "qr":this.state.result,
-            "notes":this.state.notesText,
-            "priority":this.state.priority
-          }
-        }
-        console.log(("email: %s" % this.state.email));
-        console.log(("qr: %s" % this.state.result));
-        console.log(("notes: %s" % this.state.notesText));
-        console.log(("priority: %s" % this.state.priority));
+        var formData = {
+          q1ID: q1Input,
+          q2ID: q2Input,
+          q3ID: q3Input
+        };
+
+        console.log("SUBMIT");
+        console.log(("Submit URL: " + submitURL));
 
         let message = "Submitting Code ...";
         this.setState({ message });
 
         let status = "loading";
         this.setState({ status });
-        request(options, this.handleServerResponse);
+
+        request.post({url:submitURL}, this.handleServerResponse);
 
       } else {
         console.log("Tried to submit invalid code.");
@@ -182,7 +140,6 @@ class Test extends Component {
         let status = "error";
         this.setState({ status });
     }
-    */
   }
 
   handleError(err){
