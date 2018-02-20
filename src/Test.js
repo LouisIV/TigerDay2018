@@ -75,6 +75,7 @@ class Test extends Component {
   }
 
   handleServerResponse(error, response, body){
+
     if(error) console.log(error);
       else console.log(body);
     try {
@@ -106,6 +107,40 @@ class Test extends Component {
   }
 
   handleSubmission(){
+    let YOURFORMID = "1FAIpQLSf78G5wJiO_QJeXhy8DEIJ0IZAUcKRpCSooFP0ensZzLcO5ug";
+
+    let q1Input = encodeURIComponent(this.state.result);
+    let q2Input = encodeURIComponent(this.state.priority);
+    let q3Input = encodeURIComponent(this.state.notesText);
+
+    console.log(("result: " + q1Input));
+    console.log(("priority: " + q2Input));
+    console.log(("notesText: " + q3Input));
+
+
+    let q1ID = "entry.15912380";
+    let q2ID = "entry.406020882";
+    let q3ID = "entry.1689860009";
+
+    let q1Encode = q1ID + "=" + q1Input + "&";
+    let q2Encode = q2ID + "=" + q2Input + "&";
+    let q3Encode = q3ID = "=" + q3Input + "&";
+    var submitURL = "https://docs.google.com/forms/d/" + YOURFORMID + "/formResponse?" + q1Encode + q2Encode + q3Encode + "submit=Submit";
+
+    var options = {
+      method: 'POST',
+      url: submitURL,
+      port: 5000
+    }
+    console.log("SUBMIT");
+    console.log(("Submit URL: " + submitURL));
+    request(options, this.handleServerResponse);
+    /*
+    "https://docs.google.com/forms/d/e/1FAIpQLSf78G5wJiO_QJeXhy8DEIJ0IZAUcKRpCSooFP0ensZzLcO5ug/formResponse"
+    "https://docs.google.com/forms/d/%s/formResponse?entry.[YOURQUESTION1IDHERE]=[YOURQUESTION1ANSWERHERE]&entry.[YOURQUESTION2IDHERE]=[YOURQUESTION2ANSWERHERE]&submit=Submit" % [YOURFORMID]
+    // this.refs.myGForm.submit();
+    // $('#mG61Hd').submit();
+    // document.getElementById("mG61Hd").reset();
     if (this.state.email !== "NOT SET") {
       if (this.state.result !== 'No result'){
         var options = {
@@ -147,6 +182,7 @@ class Test extends Component {
         let status = "error";
         this.setState({ status });
     }
+    */
   }
 
   handleError(err){
@@ -218,6 +254,7 @@ class Test extends Component {
           <div style={{display: 'flex', flexWrap: 'wrap'}}>
             <div className="User-input-box" style={{order:1, flexBasis: 400, flexGrow: 6, }}>
               <button
+                id="Submit-Button"
                 onClick={this.handleSubmission}
                 className={buttonClass}
                 style={{
