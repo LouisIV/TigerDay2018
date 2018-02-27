@@ -28,7 +28,7 @@ class HelpMessage extends Component {
 		}
 
 		return (
-			<p className={className} style={{fontSize: '1em'}}>{icons} {this.props.message}</p>
+			<p className={className} style={{fontSize: '1em', fontWeight: 600}}>{icons} {this.props.message}</p>
 		)
 	}
 }

@@ -2,7 +2,7 @@
   --red: #f74c5a;
   --green: #002C7F;
 
-  --warn: #ff9900;
+  --warn: #ff5b00;
   --school: #e87b1f;
 
   --light-grey: #efefef;
@@ -77,7 +77,7 @@ button {
 }
 
 .Submit-ready {
-  background-color: var(--school);
+  background-color: var(--green);
 }
 
 .Option-button {
@@ -126,7 +126,9 @@ input {
   margin: 15px;
   margin-right: 0px;
   border-radius: 4px;
-  border: solid var(--school) .5px;
+  /*border: solid var(--school) .5px;*/
+  background-color: var(--light-grey);
+  border-color: transparent;
   font-size: 1em;
   padding-left: 20px;
 }

@@ -61,14 +61,13 @@ class DataForm extends Component {
 			<div style={{display: 'flex', flexDirection: 'column'}}>
 				<div className="User-input-box" style={{flexDirection: 'row', order: 1, justifyContent: "center"}}>
 					<button id={"low-p"} onClick={this.handlePriorityChange} className={this.state.lowButtonClass} style={{marginLeft: 0}}>
-						<i id={"low-p"} className="fa fa-envelope fa-2x"></i>
+						<label style={{color: 'inherit'}}>1</label>
 					</button>
 					<button id={"med-p"} onClick={this.handlePriorityChange} className={this.state.medButtonClass}>
-						<i id={"med-p"} className="fa fa-envelope fa-2x"></i>
+						<label style={{color: 'inherit'}}>2</label>
 					</button>
-
 					<button id={"high-p"} onClick={this.handlePriorityChange} className={this.state.highButtonClass} style={{marginRight: 0}}>
-						<i id={"high-p"} className="fa fa-envelope fa-2x"></i>
+						<label style={{color: 'inherit'}}>3</label>
 					</button>
 				</div>		
 	            <label style={{order: 2}}>Notes:</label>

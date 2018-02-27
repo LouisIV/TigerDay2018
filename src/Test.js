@@ -20,7 +20,7 @@ class Test extends Component {
       result: 'No result',
       legacyMode: true,
       email: "NOT SET",
-      message: "Please ensure this is your correct email",
+      message: "Please ensure this is your correct session",
       status: "warn",
       notesText: "",
       priority: 2,
@@ -41,7 +41,7 @@ class Test extends Component {
   componentWillMount() {
     const { cookies } = this.props;
     var id = cookies.get('id') || 'NOT SET';
-    var email = cookies.get('email') || 'Please Provide Your Email';
+    var email = cookies.get('email') || 'What session are you attending?';
     this.setState({id});
     this.setState({email});
   }
@@ -136,7 +136,7 @@ class Test extends Component {
       }
     } else {
         console.log("Tried to submit without email.");
-        let message = "You need to enter your email first";
+        let message = "You need to enter your session first";
         this.setState({ message });
 
         let status = "error";
@@ -160,7 +160,7 @@ class Test extends Component {
 
   render(){
     const { email } = this.state;
-    var placeholder = "Please enter your email";
+    var placeholder = "Please enter your session";
     var buttonClass = "Submit-disabled";
     if (email !== "NOT SET") {
       placeholder = email;
@@ -170,7 +170,7 @@ class Test extends Component {
         buttonClass = "Submit-ready";
       }
     } else {
-      let message = "Enter you email to get started";
+      let message = "Enter you session to get started";
       this.setState({ message });
       let status = "";
       this.setState({status});
@@ -180,14 +180,14 @@ class Test extends Component {
     return(
       <div>
         <div className="User-input-box" style={{marginTop: 30, height: 20}}>
-          <label style={{margin: 0}}>Email:</label>
+          <label style={{margin: 0}}>Current Session:</label>
         </div>
         <div className="User-input-box">
           <input
             type="text"
             placeholder={placeholder}
             onChange={this.handleEmailChange}
-            style={{margin: 0}}/>
+            style={{margin: 0, fontWeight: 600, color: "var(--dark-grey)"}}/>
         </div>
         <div>
           <div className="User-input-box" style={{marginBottom: 0}}>
@@ -226,7 +226,7 @@ class Test extends Component {
                   justifyContent:'center',
                   alignItems: 'center',
                 }}
-                >Submit
+                ><label style={{color: 'white'}}>Submit</label>
               </button>
             </div>
           </div>
