@@ -15,11 +15,11 @@ class HelpMessage extends Component {
 			className = "success";
 		}
 		else if (this.props.status === "error"){
-			icons = <i className="fa fa-times fa-lg error"></i>;
+			icons = <i className="fa fa-times-circle fa-lg error"></i>;
 			className = "error";
 		}
 		else if (this.props.status === "warn"){
-			icons = <i className="fa fa-exclamation"></i>;
+			icons = <i className="fa fa-exclamation-triangle"></i>;
 			className = "warn";
 		}
 		else if(this.props.status === "loading"){

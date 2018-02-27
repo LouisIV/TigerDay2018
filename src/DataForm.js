@@ -60,14 +60,15 @@ class DataForm extends Component {
 		return (
 			<div style={{display: 'flex', flexDirection: 'column'}}>
 				<div className="User-input-box" style={{flexDirection: 'row', order: 1, justifyContent: "center"}}>
-					<button id={"high-p"} onClick={this.handlePriorityChange} className={this.state.highButtonClass}>
-						<i id={"high-p"} className="fa fa-bullhorn fa-2x"></i>
+					<button id={"low-p"} onClick={this.handlePriorityChange} className={this.state.lowButtonClass} style={{marginLeft: 0}}>
+						<i id={"low-p"} className="fa fa-envelope fa-2x"></i>
 					</button>
 					<button id={"med-p"} onClick={this.handlePriorityChange} className={this.state.medButtonClass}>
-						<i id={"med-p"} className="fa fa-bullhorn fa-2x"></i>
+						<i id={"med-p"} className="fa fa-envelope fa-2x"></i>
 					</button>
-					<button id={"low-p"} onClick={this.handlePriorityChange} className={this.state.lowButtonClass}>
-						<i id={"low-p"} className="fa fa-bullhorn fa-2x"></i>
+
+					<button id={"high-p"} onClick={this.handlePriorityChange} className={this.state.highButtonClass} style={{marginRight: 0}}>
+						<i id={"high-p"} className="fa fa-envelope fa-2x"></i>
 					</button>
 				</div>		
 	            <label style={{order: 2}}>Notes:</label>
@@ -75,9 +76,9 @@ class DataForm extends Component {
 	              type="text"
 	              maxLength={this.state.maxNotesLength}
 	              onChange={this.handleTextAreaChange}
-	              style={{order: 3}}
+	              style={{order: 3, color: "var(--dark-grey)", }}
 	            />
-	            <label style={{order: 4, textAlign: 'right'}} className={className}>{charsRemaining}</label>
+	            <label style={{order: 4, textAlign: 'right', fontSize: '1em'}} className={className}>{charsRemaining}</label>
 	        </div>
 		)
 	}

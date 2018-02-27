@@ -4,7 +4,10 @@ import QrReader from 'react-qr-reader'
 import { withCookies, Cookies } from 'react-cookie';
 import HelpMessage from './HelpMessage';
 import DataForm from './DataForm';
+import logo from './logo.png';
+
 var request = require('request');
+
 
 class Test extends Component {
   static propTypes = {
@@ -86,32 +89,31 @@ class Test extends Component {
   }
 
   handleSubmission(){
-    let YOURFORMID = "1FAIpQLSf78G5wJiO_QJeXhy8DEIJ0IZAUcKRpCSooFP0ensZzLcO5ug";
+    let FORM_ID = "1FAIpQLSf78G5wJiO_QJeXhy8DEIJ0IZAUcKRpCSooFP0ensZzLcO5ug";
 
-    let q1Input = encodeURIComponent(this.state.result);
-    let q2Input = encodeURIComponent(this.state.priority);
-    let q3Input = encodeURIComponent(this.state.notesText);
+    let qQRInput = encodeURIComponent(this.state.result);
+    let qPriorityInput = encodeURIComponent(this.state.priority);
+    let qNotesInput = encodeURIComponent(this.state.notesText);
+    let qEmailInput = encodeURIComponent(this.state.email);
 
-    console.log(("result: " + q1Input));
-    console.log(("priority: " + q2Input));
-    console.log(("notesText: " + q3Input));
+    console.log(("result: " + qQRInput));
+    console.log(("priority: " + qPriorityInput));
+    console.log(("notesText: " + qNotesInput));
+    console.log(("email: " + qEmailInput));
 
-    let q1ID = "entry.15912380";
-    let q2ID = "entry.406020882";
-    let q3ID = "entry.1689860009";
+    let qQRID       = "entry.15912380";
+    let qPriorityID = "entry.406020882";
+    let qNotesID    = "entry.1689860009";
+    let qEmailID    = "entry.121637316";
 
-    let q1Encode = q1ID + "=" + q1Input + "&";
-    let q2Encode = q2ID + "=" + q2Input + "&";
-    let q3Encode = q3ID + "=" + q3Input + "&";
-    var submitURL = "https://docs.google.com/forms/d/e/" + YOURFORMID + "/formResponse?" + q1Encode + q2Encode + q3Encode + "submit=Submit";
+    let q1Encode = qQRID + "=" + qQRInput + "&";
+    let q2Encode = qPriorityID + "=" + qPriorityInput + "&";
+    let q3Encode = qNotesID + "=" + qNotesInput + "&";
+    let q4Encode = qEmailID + "=" + qEmailInput + "&";
+    var submitURL = "https://docs.google.com/forms/d/e/" + FORM_ID + "/formResponse?" + q1Encode + q2Encode + q3Encode + q4Encode + "submit=Submit";
 
     if (this.state.email !== "NOT SET") {
       if (this.state.result !== 'No result'){
-        var formData = {
-          q1ID: q1Input,
-          q2ID: q2Input,
-          q3ID: q3Input
-        };
 
         console.log("SUBMIT");
         console.log(("Submit URL: " + submitURL));
@@ -151,6 +153,7 @@ class Test extends Component {
   }
 
   updatePriority(priority){
+    //<p>{this.state.result}</p>
     this.setState({ priority });
   }
 
@@ -176,7 +179,9 @@ class Test extends Component {
     
     return(
       <div>
-        
+        <div className="User-input-box" style={{marginTop: 30, height: 20}}>
+          <label style={{margin: 0}}>Email:</label>
+        </div>
         <div className="User-input-box">
           <input
             type="text"
@@ -185,7 +190,7 @@ class Test extends Component {
             style={{margin: 0}}/>
         </div>
         <div>
-          <div className="User-input-box">
+          <div className="User-input-box" style={{marginBottom: 0}}>
             <button
               onClick={this.handleImgSubmit}
               className="qr-button"><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
@@ -205,7 +210,7 @@ class Test extends Component {
             />
         </div>
         <div>
-          <p>{this.state.result}</p>
+          
           <DataForm updateNotesForm={this.updateNotesForm} onPriorityChange={this.updatePriority}/>
           <HelpMessage message={message} status={this.state.status}/>
           <div style={{display: 'flex', flexWrap: 'wrap'}}>
@@ -224,9 +229,14 @@ class Test extends Component {
                 >Submit
               </button>
             </div>
-            <div className="User-input-box" style={{order:2, flexBasis: 100, flexGrow: 1}}>
-              <button className={"high-p"}><i className={"fa fa-repeat fa-lg"}></i></button>
-            </div>
+          </div>
+        </div>
+        <div className={"User-input-box"} style={{justifyContent:'center', alignItems:'center', marginTop: 0}}>
+          <div style={{flex: 2, height: 50, justifyContent:'center', alignItems:'center', borderRadius: 2.5, backgroundColor: "var(--school)", marginRight: 5}}>
+            <img src={logo} style={{height: 50}} ></img>
+          </div>
+          <div style={{flex: 1, display: 'flex', height: 50, justifyContent:'center', alignItems:'center', borderRadius: 2.5, backgroundColor: "var(--green)", marginLeft: 5}}>
+            <a href='#' style={{flex: 1,}}><label style={{color: 'white'}}>Help?</label></a>
           </div>
         </div>
       </div>
