@@ -233,10 +233,10 @@ class Test extends Component {
         </div>
         <div className={"User-input-box"} style={{justifyContent:'center', alignItems:'center', marginTop: 0}}>
           <div style={{flex: 2, height: 50, justifyContent:'center', alignItems:'center', borderRadius: 2.5, backgroundColor: "var(--school)", marginRight: 5}}>
-            <img src={logo} style={{height: 50}} ></img>
+            <img src={logo} style={{height: 50}} alt="Pacific Logo"></img>
           </div>
           <div style={{flex: 1, display: 'flex', height: 50, justifyContent:'center', alignItems:'center', borderRadius: 2.5, backgroundColor: "var(--green)", marginLeft: 5}}>
-            <a href='#' style={{flex: 1,}}><label style={{color: 'white'}}>Help?</label></a>
+            <a href='https://www.google.com' style={{flex: 1,}}><label style={{color: 'white'}}>Help?</label></a>
           </div>
         </div>
       </div>
