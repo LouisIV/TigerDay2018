@@ -20,7 +20,7 @@ class Test extends Component {
       result: 'No result',
       legacyMode: true,
       email: "NOT SET",
-      message: "Please ensure this is your correct session",
+      message: "Please ensure this is your correct session / email",
       status: "warn",
       notesText: "",
       priority: 2,
@@ -136,7 +136,7 @@ class Test extends Component {
       }
     } else {
         console.log("Tried to submit without email.");
-        let message = "You need to enter your session first";
+        let message = "You need to enter your session / email first";
         this.setState({ message });
 
         let status = "error";
@@ -160,7 +160,7 @@ class Test extends Component {
 
   render(){
     const { email } = this.state;
-    var placeholder = "Please enter your session";
+    var placeholder = "Please enter your session / email";
     var buttonClass = "Submit-disabled";
     if (email !== "NOT SET") {
       placeholder = email;
@@ -193,7 +193,7 @@ class Test extends Component {
           <div className="User-input-box" style={{marginBottom: 0}}>
             <button
               onClick={this.handleImgSubmit}
-              className="qr-button"><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
+              className="qr-button" style={{padding: 0}}><i className={"fa fa-camera fa-lg"}></i> or <i className="fa fa-paperclip fa-lg"></i></button>
           </div>
           <QrReader
             delay={this.state.delay}
